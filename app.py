@@ -95,10 +95,10 @@ if submitted:
     if model is None:
         st.error("No model loaded. Fix the model file and reload the app.")
     else:
-        # assemble input; ensure column names and order match training
+        # assemble raw input (these are the app's "raw" columns)
         input_data = pd.DataFrame({
             'Age': [int(age)],
-            'Gender': [int(gender)],
+            'Gender': [int(gender)],  # numeric fallback if needed
             'BMI': [float(bmi)],
             'Glucose_Level': [float(glucose)],
             'Blood_Pressure': [float(bp)],
@@ -107,7 +107,13 @@ if submitted:
             'Family_History': [int(family_history)]
         })
 
-        # If the model exposes feature_names_in_, check for a mismatch and warn
+        # Keep the display strings around so we can create proper one-hot columns if model expects them
+        input_data_display = input_data.copy()
+        input_data_display['Gender_display'] = gender_display
+        input_data_display['Family_History_display'] = history_display
+        input_data_display['Physical_Activity_display'] = activity_display
+
+        # If the model exposes feature_names_in_, try to align/reindex the app input to match exactly.
         try:
             if hasattr(model, "feature_names_in_"):
                 model_features = list(model.feature_names_in_)
@@ -117,12 +123,74 @@ if submitted:
                         "Warning: The input features do not exactly match the model's expected features.\n\n"
                         f"Model expects: {model_features}\n\n"
                         f"App sends:   {input_features}\n\n"
-                        "If these differ, predictions may be incorrect. Adjust column names/order to match."
+                        "The app will attempt to align the inputs automatically. If this fails, use a saved preprocessing pipeline."
                     )
-        except Exception:
-            # ignore if introspection not supported
-            pass
 
+                # Start with a copy and then add any missing one-hot / dummy columns the model expects.
+                X = input_data_display.copy()
+
+                # If model expects Gender_M / Gender_F style columns, create them
+                for feat in model_features:
+                    if feat not in X.columns:
+                        # handle Gender_M / Gender_F
+                        if feat.startswith("Gender_"):
+                            # expected token after underscore, e.g., 'M' or 'Male' or 'Female'
+                            token = feat.split("_", 1)[1]
+                            token_norm = token.lower()
+                            if token_norm in ["m", "male", "man"]:
+                                X[feat] = 1 if gender_display.lower().startswith("m") else 0
+                            elif token_norm in ["f", "female", "woman"]:
+                                X[feat] = 1 if gender_display.lower().startswith("f") else 0
+                            else:
+                                # generic compare
+                                X[feat] = 1 if token_norm in gender_display.lower() else 0
+
+                        # handle Family_History_Yes style
+                        elif feat.lower() == "family_history_yes":
+                            X[feat] = 1 if history_display == "Yes" else 0
+
+                        # handle Physical_Activity_... dummies
+                        elif feat.startswith("Physical_Activity_"):
+                            token = feat.split("_", 2)[2] if feat.count("_") >= 2 else feat.split("_", 1)[1]
+                            X[feat] = 1 if token.lower() in activity_display.lower() else 0
+
+                        else:
+                            # generic numeric column missing -> fill with 0
+                            X[feat] = 0
+
+                # Reindex to the exact order expected by the model (fill any remaining missing with 0)
+                X = X.reindex(columns=model_features, fill_value=0)
+            else:
+                X = input_data
+        except Exception:
+            # if we can't auto-align, fall back to original and let sklearn raise a clear error
+            X = input_data
+
+        # Make prediction with error handling
+        try:
+            pred = model.predict(X)[0]
+            prob = get_probability(model, X)  # may be None
+
+            st.markdown("---")
+
+            if pred == 1:
+                st.error("Result: High Risk of Diabetes Detected")
+                if prob is not None:
+                    st.write(f"Confidence (probability of diabetes): {prob:.1%}")
+                else:
+                    st.info("Model does not provide a probability score for this prediction.")
+                st.warning("⚠️ This patient should consult a specialist for further testing.")
+            else:
+                st.success("Result: Low Risk of Diabetes Detected")
+                if prob is not None:
+                    st.write(f"Confidence (probability of NO diabetes): {(1 - prob):.1%}")
+                else:
+                    st.info("Model does not provide a probability score for this prediction.")
+
+        except Exception as e:
+            st.error("An error occurred during prediction.")
+            st.info("Check if your feature names, column order, and data types match what the model expects.")
+            st.exception(e)  # shows stack trace in the app for debugging (remove in production)
         # Make prediction with error handling
         try:
             pred = model.predict(input_data)[0]
