@@ -18,7 +18,7 @@ st.write("Enter patient details below to generate a risk assessment.")
 
 # --- Load the Model ---
 @st.cache_resource
-def load_model(path: str = "diabetes_model.pkl"):
+def load_model(path: str = "Log_reg.pkl"):
     """
     Try joblib first (common for sklearn), then pickle as fallback.
     Returns the model or None if loading fails.
