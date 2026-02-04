@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import joblib
+import lightgbm
 
 # Load the trained model and preprocessor
 lgbm_tuned_model = joblib.load('lgbm_tuned_model.pkl')
