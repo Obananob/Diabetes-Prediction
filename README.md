@@ -174,20 +174,21 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 - **Miss Opeyemi Omotola**
 - **Mr. Oyedele** *(Phase Lead)*
 - **Mr. Duke Okechukwu**
+- **Oni Fathia**
 
 *Data cleaning, reshaping, wrangling, exploratory data analysis, and feature selection*
 
 ### Model Development & Optimization
 - **Miss Oni Bashir**
-- **Mr. Abdulkareem** *(Phase Lead)*
-- **Mr. Duke Okechukwu**
+- **Abdulkareem Abdul Majeed** *(Phase Lead)*
+- **Olakunle**
 
 *Model selection, train-test split, training, evaluation, comparison, and optimization*
 
 ### Deployment & Documentation
-- **Miss Oni Bashir** *(Phase Lead)*
-- **Mr. Abdulkareem**
-- **Miss Elizabeth**
+- **Oni Bashir Atiatunnasir Arike** *(Phase Lead)*
+- **Ghithayat AbdulRaheem**
+- **Zeenat**
 
 *Result interpretation, model deployment (Streamlit app), and project documentation*
 
