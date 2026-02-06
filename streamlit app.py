@@ -22,7 +22,7 @@ with st.form("prediction_form"):
     physical_activity = st.number_input('Physical Activity (minutes/week)', min_value=0, max_value=1000, value=None)
     family_history = st.selectbox('Family History of Diabetes', ['No', 'Yes'])
     
-    submitted = st.form_submit_button("Predict Diabetes")
+submitted = st.form_submit_button("Predict Diabetes")
 
 if submitted:
     if physical_activity <= 150:
