@@ -189,6 +189,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 - **Oni Bashir Atiatunnasir Arike** *(Phase Lead)*
 - **Ghithayat AbdulRaheem**
 - **Zeenat**
+- **Oyebanji Olamide Elizabeth**
 
 *Result interpretation, model deployment (Streamlit app), and project documentation*
 
