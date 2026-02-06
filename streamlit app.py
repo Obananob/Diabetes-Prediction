@@ -87,7 +87,8 @@ if submitted:
 
         st.subheader("Prediction Result:")
         
-  if prediction[0] == 1:
-      st.error(f"⚠️ High Risk: This patient shows a {prediction_proba[0]*100:.1f}% likelihood of having diabetes. Please consult a healthcare professional for proper diagnosis.") 
-  else:
+        
+    if prediction[0] == 1:
+        st.error(f"⚠️ High Risk: This patient shows a {prediction_proba[0]*100:.1f}% likelihood of having diabetes. Please consult a healthcare professional for proper diagnosis.") 
+    else:
       st.success(f"✓ Low Risk: This patient shows a {(1 - prediction_proba[0])*100:.1f}% likelihood of NOT having diabetes. Regular monitoring is still recommended.")
