@@ -13,13 +13,13 @@ st.write("Please enter the patient's details to predict the likelihood of diabet
 
 with st.form("prediction_form"):
     st.header("Patient Information")
-    age = st.number_input('Age', min_value=1, max_value=120, value=30)
+    age = st.number_input('Age', min_value=1, max_value=120, value=None, Placeholder = "Enter Your Age")
     gender = st.selectbox('Gender', ['Female', 'Male'])
-    bmi = st.number_input('BMI', min_value=10.0, max_value=60.0, value=25.0, step=0.1)
-    glucose_level = st.number_input('Glucose Level', min_value=50, max_value=250, value=100)
-    blood_pressure = st.number_input('Blood Pressure', min_value=50, max_value=200, value=90)
-    insulin = st.number_input('Insulin', min_value=10.0, max_value=300.0, value=100.0, step=0.1)
-    physical_activity = st.number_input('Physical Activity (minutes/week)', min_value=0, max_value=1000, value=150)
+    bmi = st.number_input('BMI', min_value=10.0, max_value=60.0, value=None, Placeholder = " Enter Your BMI", step=0.1)
+    glucose_level = st.number_input('Glucose Level', min_value=50, max_value=250, value=None, Placeholder = "Enter Your Glucose Level" )
+    blood_pressure = st.number_input('Blood Pressure', min_value=50, max_value=200, value=None, Placeholder = None )
+    insulin = st.number_input('Insulin', min_value=10.0, max_value=300.0, value=None, step=0.1)
+    physical_activity = st.number_input('Physical Activity (minutes/week)', min_value=0, max_value=1000, value=None)
     family_history = st.selectbox('Family History of Diabetes', ['No', 'Yes'])
     
     submitted = st.form_submit_button("Predict Diabetes")
