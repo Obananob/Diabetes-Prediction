@@ -14,13 +14,13 @@ st.write("Please enter the patient's details to predict the likelihood of diabet
 with st.form("prediction_form"):
     st.header("Patient Information")
     
-    age = st.number_input('Age', min_value=1, max_value=120, value=None, placeholder="Enter age (1-120)")
+    age = st.number_input('Age', min_value=1, max_value=120, value=None, placeholder="Enter age")
     gender = st.selectbox('Gender', ['Select...', 'Female', 'Male'])
-    bmi = st.number_input('BMI', min_value=10.0, max_value=60.0, value=None, step=0.1, placeholder="Enter BMI (10.0-60.0)")
-    glucose_level = st.number_input('Glucose Level (mg/dL)', min_value=50, max_value=250, value=None, placeholder="Enter glucose level (50-250)")
-    blood_pressure = st.number_input('Blood Pressure (mmHg)', min_value=50, max_value=200, value=None, placeholder="Enter blood pressure (50-200)")
-    insulin = st.number_input('Insulin (μU/mL)', min_value=10.0, max_value=300.0, value=None, step=0.1, placeholder="Enter insulin level (10.0-300.0)")
-    physical_activity = st.number_input('Physical Activity (minutes/week)', min_value=0, max_value=1000, value=None, placeholder="Enter minutes per week (0-1000)")
+    bmi = st.number_input('BMI', min_value=10.0, max_value=60.0, value=None, step=0.1, placeholder="Enter BMI ")
+    glucose_level = st.number_input('Glucose Level (mg/dL)', min_value=50, max_value=250, value=None, placeholder="Enter glucose level")
+    blood_pressure = st.number_input('Blood Pressure (mmHg)', min_value=50, max_value=200, value=None, placeholder="Enter blood pressure")
+    insulin = st.number_input('Insulin (μU/mL)', min_value=10.0, max_value=300.0, value=None, step=0.1, placeholder="Enter insulin level")
+    physical_activity = st.number_input('Physical Activity (minutes/week)', min_value=0, max_value=1000, value=None, placeholder="Enter minutes per week")
     family_history = st.selectbox('Family History of Diabetes', ['Select...', 'No', 'Yes'])
     
     submitted = st.form_submit_button("Predict Diabetes")
@@ -87,7 +87,7 @@ if submitted:
 
         st.subheader("Prediction Result:")
         
-if prediction[0] == 1:
-    st.error(f"⚠️ High Risk: This patient shows a {prediction_proba[0]*100:.1f}% likelihood of having diabetes. Please consult a healthcare professional for proper diagnosis.") 
-else:
-    st.success(f"✓ Low Risk: This patient shows a {(1 - prediction_proba[0])*100:.1f}% likelihood of NOT having diabetes. Regular monitoring is still recommended.")
+  if prediction[0] == 1:
+      st.error(f"⚠️ High Risk: This patient shows a {prediction_proba[0]*100:.1f}% likelihood of having diabetes. Please consult a healthcare professional for proper diagnosis.") 
+  else:
+      st.success(f"✓ Low Risk: This patient shows a {(1 - prediction_proba[0])*100:.1f}% likelihood of NOT having diabetes. Regular monitoring is still recommended.")
