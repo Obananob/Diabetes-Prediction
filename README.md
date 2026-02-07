@@ -68,9 +68,8 @@ diabetes-prediction-app/
 ├── requirements.txt          # Python dependencies
 ├── lgbm_tuned_model.pkl     # Trained LightGBM model
 ├── preprocessor.pkl          # Data preprocessor
-├── notebook.ipynb            # Model training & analysis notebook
+├── Diabetes_Prediction.ipynb            # Model training & analysis notebook
 ├── README.md                 # Project documentation
-└── .gitignore               # Git ignore file
 ```
 
 ## Usage
@@ -166,6 +165,11 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 **Awibi Diabetes Disease Prediction Group**
 
+**Project Lead**
+Ogunwale Fawas Abiodun
+
+*Oversee the Project*
+
 ### Dataset Acquisition & Selection
 - Mr. Alli
 - Miss Elizabeth
@@ -190,8 +194,16 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 - **Ghithayat AbdulRaheem**
 - **Zeenat**
 - **Oyebanji Olamide Elizabeth**
+- **Polymath**
 
 *Result interpretation, model deployment (Streamlit app), and project documentation*
+
+### Research-Based Report
+- **Ogunwale Fawas Abiodun** *(Lead)*
+- **Oni-Bashir Atiatunnasir Arike**
+- **Fahmgeneral**
+
+  *Writing of research project, delivering of the report of the project*
 
 ---
 
